@@ -5,7 +5,10 @@
         puzzlePieces = document.querySelectorAll('.puzzle-pieces *'),
         dropZones = document.querySelectorAll('.drop-zone'),
         theGameBoard = document.querySelector('.puzzle-board');
+
     // this below thelink is in reference to prevent default function 
+
+
 
     theLink = document.querySelector('a');
 
@@ -19,13 +22,32 @@
         //]
         //
         //
+        // for the background images 
 
-    function changeBgImg() {
+    // const is a variable whose value we cannot change and it is immutable. use this to assign bits of data that will be constant for the entire life cycle of your app.
+
+    // puzzlePath refer to half of the image src that we need to build -> need to append an index to align them wit 0,1,2,3 
+
+
+    const puzzlePaths = ["topLeft", "topRight", "bottomLeft", "bottomRight"]
+
+    function changeImgSet() {
+
+
+
         //debugger; // pause our code execution at this point
+
+        // this " this " keyword refers to the element that triggers this function 
         let key = this.dataset.bgref;
         console.log(key);
 
         theGameBoard.style.backgroundImage = `url(images/backGround${key}.jpg)`;
+
+        // loop through all of the small draggable images and change their src attribute with JS
+
+        puzzlePaths.forEach((img, index) => {
+            puzzlePieces[index].src = `images/${img + this.dataset.bgref}.jpg`;
+        });
     }
 
     function startDrag(event) {
@@ -63,7 +85,7 @@
     // search for MDN Javascript template string
 
     // these are the " triggers" we want  the user to use to fire off the events.
-    theButtons.forEach(button => button.addEventListener('click', changeBgImg));
+    theButtons.forEach(button => button.addEventListener('click', changeImgSet));
 
     puzzlePieces.forEach(piece => piece.addEventListener('dragstart', startDrag));
     dropZones.forEach(zone => {
