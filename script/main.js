@@ -7,22 +7,9 @@
         theGameBoard = document.querySelector('.puzzle-board');
 
     // this below thelink is in reference to prevent default function 
-
-
-
     theLink = document.querySelector('a');
 
     theLink.addEventListener('click', function(event) { event.preventDefault(); })
-        // the buttons becomes this
-        // [
-        // <img>
-        // <img>
-        // <img>
-        // <img>
-        //]
-        //
-        //
-        // for the background images 
 
     // const is a variable whose value we cannot change and it is immutable. use this to assign bits of data that will be constant for the entire life cycle of your app.
 
@@ -40,12 +27,16 @@
         // this " this " keyword refers to the element that triggers this function 
         let key = this.dataset.bgref;
         console.log(key);
-
         theGameBoard.style.backgroundImage = `url(images/backGround${key}.jpg)`;
 
         // loop through all of the small draggable images and change their src attribute with JS
+        puzzlePieces.forEach(piece => {
+            document.querySelector(".puzzle-pieces").append(piece)
+
+        });
 
         puzzlePaths.forEach((img, index) => {
+            console.log(`images/${img + this.dataset.bgref}.jpg`)
             puzzlePieces[index].src = `images/${img + this.dataset.bgref}.jpg`;
         });
     }
@@ -66,19 +57,23 @@
         console.log('dragged over me');
     }
 
+    // crushing bugs and fixing my build 
+    // return to reset the page 
+    // no overlapping of image
+
+
+
     function handleDrop(event) {
         event.preventDefault();
         console.log('dropped on me');
         // getter is here and setter is above
         let currentEl = event.dataTransfer.getData('draggedElement');
-
-        console.log('dropped this element:', currentEl);
-
         // append child ( add child) is a built in javacript method that 
-        // adds an element to a containing ( [parent] ) element 
-
+        // adds an element to a containing ( [parent] ) element
         // thie " this" keyword is a reference to the element you are dropping onto ( or into )
-        this.appendChild(document.querySelector(`#${currentEl}`));
+        if (this.children.length == 0) {
+            this.appendChild(document.querySelector(`#${currentEl}`));
+        }
     }
 
     // `` => this is javascript template string, you can use it to write a bit of a inline javascript which will be interpreted at runtime
