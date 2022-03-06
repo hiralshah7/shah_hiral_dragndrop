@@ -1,4 +1,5 @@
 (() => {
+    // from classs 
     // makee the connections to the elemnts on the page
     //that we want the user to interact with 
     const theButtons = document.querySelectorAll('#buttonHolder img'),
